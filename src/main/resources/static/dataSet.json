@@ -7,7 +7,7 @@
                   {
                     "unitSize": 1000,
                     "singlePriceNet": 1.5,
-                    "offerDate": "2021-05-29"
+                    "offerDate": "2021-05-28"
                   },
                   {
                     "unitSize": 1000,
@@ -27,11 +27,11 @@
                   {
                     "unitSize": 1000,
                     "singlePriceNet": 3,
-                    "offerDate": "2021-05-30"
+                    "offerDate": "2021-06-01"
                   }
                 ]
               }
   ],
-  "firstDate": "2021-05-27",
-  "lastDate": "2021-06-01"
+  "firstDate": "2021-05-15",
+  "lastDate": "2021-06-05"
 }
