@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Charts 4</title>
+</head>
+<body>
+<h1>charts4</h1>
+<!--  include chart.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<!--<div id="myData2"></div>-->
+<div id="myOffers"></div>
+<div id="myDates"></div>
+<!--  create canvas - this will be filled-->
+<canvas id="line-chart" width="800" height="450"></canvas>
+
+<script>
+    const datesArray = new Array();
+    const vendorsArray = new Array();
+    const pricesArray = new Array();
+
+<!--    getting the jsonData -->
+fetch("datatest.json")
+    .then(response => response.json())
+    .then(jsonData => {
+        console.log(jsonData.kartikel); // first level property in json
+        console.log(jsonData.offer);    // first levele property containing second level of data in json
+        appendOfferData(jsonData.offer);
+        getOfferDates(jsonData.offer);
+        getVendors(jsonData.offer);
+    })
+
+
+function appendOfferData(data){
+    const myOffersContainer = document.getElementById("myOffers");
+    for(let i=0; i < data.length; i++){
+        let div = document.createElement("div");
+        div.innerHTML = 'vendor: ' + data[i].vendorId +
+            ' unitSize: ' + data[i].unitSize +
+            ' singlePriceNet: ' + data[i].singlePriceNet +
+            ' offerDate: ' + data[i].offerDate;
+        myOffersContainer.appendChild(div);
+    }
+}
+
+function getOfferDates(jsonData) {
+    for (let i = 0; i < jsonData.length; i++) {
+        datesArray.push(jsonData[i].offerDate);
+    }
+}
+
+function getVendors(jsonData){
+    for (let i = 0; i < jsonData.length; i++) {
+        vendorsArray.push(jsonData[i].vendorId);
+    }
+}
+
+ function getVendors(jsonData){
+     for (let i = 0; i < jsonData.length; i++) {
+         pricesArray.push(jsonData[i].singlePriceNet);
+     }
+ }
+
+
+
+
+    <!--  create new Chart of type Line within the before created canvas line-chart-->
+    new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+            labels: datesArray,
+            datasets: [{
+                data: pricesArray,
+                label: 1,
+                borderColor: "#3e95cd",
+                fill: false
+            }, {
+                data: [0,1,2,3,4,5],
+                label: 2,
+                borderColor: "#8e5ea2",
+                fill: false
+            },
+            ]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'prices to compare'
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

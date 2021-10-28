@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>get json data out of file</title>
+    </head>
+    <body>
+        <h1>Json Reader</h1>
+        <p>Check F12 -> console: here you´ll find the content of the json and error log</p>
+        <p>https://howtocreateapps.com/fetch-and-display-json-html-javascript/</p>
+
+        <p>first attempt:</p>
+        <div id="myData1"></div>
+        <p>Second attempt:</p>
+        <div id="myData2"></div>
+
+<!--        First Attempt -->
+<!--        1.  fetch that file 2. then parse the data out of the file 3. then do something with the parsed data (like assigning it to a DOM element) -->
+<!--        Second Attempt: -->
+<!--        gets the file and data and loops through the data using the function appendData()-->
+<!--        appendData() takes in as argument not data but data.person-->
+
+        <script>
+            fetch("people.json")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.person)
+                document.querySelector("#myData1").innerText = data.person
+                appendData(data.person);
+            })
+            .then(function(data){
+                appendData(data)
+            })
+           .catch(function(err){
+                console.log('myError: ' + err);
+           })
+
+            function appendData(data){
+                var mainContainer = document.getElementById("myData2");
+                for(var i=0; i < data.length; i++){
+                    var div = document.createElement("div");
+                    div.innerHTML = 'FirstName: ' + data[i].firstName;
+                    mainContainer.appendChild(div);
+                }
+            }
+        </script>
+
+    <h1>Test mit offers</h1>
+    <div id="myOffers"></div>
+
+    <script>
+        fetch("offers.json")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    appendOfferData(data);
+        })
+
+
+        function appendOfferData(data){
+            var mainOfferContainer = document.getElementById("myOffers");
+            for(var i=0; i < data.length; i++){
+                var div = document.createElement("div");
+                div.innerHTML = 'ID: ' + data[i].id + ' request Id: ' + data[i].requestId + ' netPriceSingle: ' + data[i].netPriceSingle;
+                mainOfferContainer.appendChild(div);
+            }
+        }
+    </script>
+
+    </body>
+</html>
+

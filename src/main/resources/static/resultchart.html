@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result Chart</title>
+</head>
+<body>
+<h1>resultchart</h1>
+<!--  include chart.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<!-- divs for testing json data-->
+<div id="myOffers"></div>
+<!--  create canvas - this will be filled-->
+<canvas id="line-chart" width="800" height="450"></canvas>
+
+<script>
+
+    fetch("dataSet.json")
+        .then(response => response.json())
+        .then(returnedJsonData => {
+            console.log(returnedJsonData.kartikel);
+            console.log(returnedJsonData.firstDate);
+            console.log(returnedJsonData.lastDate);
+            console.log(returnedJsonData.vendors);
+            appendOfferData(returnedJsonData);
+        })
+
+    function appendOfferData(data){
+        const myOffersContainer = document.getElementById("myOffers");
+        let div = document.createElement("div");
+        div.innerHTML = 'kartikel: ' + data.kartikel +
+            ' firstDate: ' + data.firstDate +
+            ' lastDate: ' + data.lastDate;
+        myOffersContainer.appendChild(div);
+
+        for(let i=0; i < data.vendors.length; i++){
+            console.log(data.vendors[i]);
+
+            for(let n=0; n < data.vendors[i].offers.length; n++) {
+                 console.log(data.vendors[i].offers);
+
+                let div = document.createElement("div");
+                div.innerHTML =
+                    'vendorId: ' + data.vendors[i].vendorId +
+                    'offerDate: ' + data.vendors[i].offers[n].offerDate
+
+                ;
+                myOffersContainer.appendChild(div);
+
+            }
+        }
+    }
+
+</script>
+
+</body>
+</html>
