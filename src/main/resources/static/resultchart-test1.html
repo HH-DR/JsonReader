@@ -21,55 +21,112 @@
     fetch("dataSet.json")
         .then(response => response.json())
         .then(returnedJsonData => {
-            console.log(returnedJsonData.kartikel);
-            console.log(returnedJsonData.firstDate);
-            console.log(returnedJsonData.lastDate);
-            console.log(returnedJsonData.vendors);
-            //appendOfferData(returnedJsonData);
+            // console.log(returnedJsonData.kartikel);
+            // console.log(returnedJsonData.firstDate);
+            // console.log(returnedJsonData.lastDate);
+            // console.log(returnedJsonData.vendors);
+            createNewChart(returnedJsonData);
+            getDataSets(returnedJsonData);
         })
 
 
+    function getAllDates(data) {
+        const datesArray = new Array();
 
-    <!--  create new Chart of type Line within the before created canvas line-chart-->
-  new Chart(document.getElementById("line-chart"), {
-    type: 'line',
-    data: {
-      labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050, 2100, 2200],
-      datasets: [{
-        data: [86,114,106,106,107,111,133,221,783,2478],
-        label: "Africa",
-        borderColor: "#3e95cd",
-        fill: false
-      }, {
-        data: [282,350,411,502,635,809,947,1402,3700,5267],
-        label: "Asia",
-        borderColor: "#8e5ea2",
-        fill: false
-      }, {
-        data: [168,170,178,190,203,276,408,547,675,734],
-        label: "Europe",
-        borderColor: "#3cba9f",
-        fill: false
-      }, {
-        data: [40,20,10,16,24,38,74,167,508,784],
-        label: "Latin America",
-        borderColor: "#e8c3b9",
-        fill: false
-      }, {
-        data: [6,3,2,2,7,26,82,172,312,433],
-        label: "North America",
-        borderColor: "#c45850",
-        fill: false
-      }
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'World population per region (in millions)'
-      }
+        for (let i = 0; i < data.vendors.length; i++) {
+
+            for (let n = 0; n < data.vendors[i].offers.length; n++) {
+
+                datesArray.push(data.vendors[i].offers[n].offerDate);
+            }
+        }
+                // take the sort() method out and sort in REST API
+                return datesArray.flat().sort();
     }
-  });
+
+    function getDataSets(data){
+        const dataSetArray = new Array();
+        const colorArray = new Array("0,0,0", "90,0,0", "0,90,0", "0,0,90", "90,0,90");
+        // getting data from vendors
+        for (let i = 0; i < data.vendors.length; i++) {
+            let label = data.vendors[i].vendorId;
+            let fill = false;
+            let borderColor = "rgb(" + colorArray[i] + ")";
+
+            let offerDataArray = new Array();
+
+            dataSetArray.push( {'label': '"vendor "'  + label + '"' },
+                {'borderColor': borderColor },
+                {'fill': fill },
+                {'data': offerDataArray}
+            )
+
+            // getting data from offers (inside vendors)
+            for(let n = 0; n < data.vendors[i].offers.length; n++){
+            offerDataArray.push(data.vendors[i].offers[n].singlePriceNet)
+            }
+            console.log(offerDataArray);
+            // dataSetArray.push( {'label': '"vendor "'  + label + '"' },
+            //                    {'borderColor': borderColor },
+            //                    {'data': offerDataArray },
+            //                    {'fill': fill }
+            // )
+
+        }
+        console.log(dataSetArray);
+        return dataSetArray;
+        }
+
+
+
+
+    function createNewChart(data){
+
+        <!--  create new Chart of type Line within the before created canvas line-chart-->
+        new Chart(document.getElementById("line-chart"), {
+            type: 'line',
+            data: {
+                // labels: ["2021-05-17","2021-06-08"],
+                labels: getAllDates(data),
+                datasets: getDataSets(data),
+                // datasets: [{
+                //     data: [86,114,106,106,107,111,133,221,783,2478],
+                //     label: "Africa",
+                //     borderColor: "setBordercolor(1)",
+                //     fill: false
+                // }, {
+                //     data: [282,350,411,502,635,809,947,1402,3700,5267],
+                //     label: "Asia",
+                //     borderColor: "rgb(0,50,200)",
+                //     fill: false
+                // }, {
+                //     data: [168,170,178,190,203,276,408,547,675,734],
+                //     label: "Europe",
+                //     borderColor: "#3cba9f",
+                //     fill: false
+                // }, {
+                //     data: [40,20,10,16,24,38,74,167,508,784],
+                //     label: "Latin America",
+                //     borderColor: "#e8c3b9",
+                //     fill: false
+                // }, {
+                //     data: [6,3,2,2,7,26,82,172,312,433],
+                //     label: "North America",
+                //     borderColor: "#c45850",
+                //     fill: false
+                // }
+                // ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Net price single per vendor and offer date for Kartikel: ' + data.kartikel
+                }
+            }
+        });
+    }
+
+
 </script>
 
 

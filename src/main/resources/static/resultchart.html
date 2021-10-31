@@ -15,15 +15,15 @@
 
 <script>
 
-    // fetch("dataSet.json")
-    //     .then(response => response.json())
-    //     .then(returnedJsonData => {
-    //         console.log(returnedJsonData.kartikel);
-    //         console.log(returnedJsonData.firstDate);
-    //         console.log(returnedJsonData.lastDate);
-    //         console.log(returnedJsonData.vendors);
-    //         appendOfferData(returnedJsonData);
-    //     })
+    fetch("dataSet.json")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.kartikel);
+            console.log(data.firstDate);
+            console.log(data.lastDate);
+            console.log(data.vendors);
+            appendOfferData(data);
+        })
 
     function appendOfferData(data){
         const myOffersContainer = document.getElementById("myOffers");

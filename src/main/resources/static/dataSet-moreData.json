@@ -1,0 +1,75 @@
+{
+  "kartikel": "123354",
+  "vendors": [
+    {
+      "vendorId": 1,
+      "offers": [
+        {
+          "unitSize": 1000,
+          "singlePriceNet": 0.893,
+          "offerDate": "2021-05-28"
+        },
+        {
+          "unitSize": 1000,
+          "singlePriceNet": 0.0067,
+          "offerDate": "2021-05-29"
+        },
+        {
+          "unitSize": 1000,
+          "singlePriceNet": 0.55,
+          "offerDate": "2021-06-01"
+        },
+        {
+          "unitSize": 1000,
+          "singlePriceNet": 0.66,
+          "offerDate": "2021-06-02"
+        },
+        {
+          "unitSize": 1000,
+          "singlePriceNet": 0.89,
+          "offerDate": "2021-06-03"
+        },
+        {
+          "unitSize": 1000,
+          "singlePriceNet": 1.3,
+          "offerDate": "2021-06-04"
+        }
+      ]
+    },
+    {
+      "vendorId": 2,
+      "offers": [
+        {
+          "unitSize": 1000,
+          "singlePriceNet": 0.222,
+          "offerDate": "2021-05-28"
+        },
+        {
+          "unitSize": 1000,
+          "singlePriceNet": 0.45,
+          "offerDate": "2021-05-29"
+        },
+        {
+          "unitSize": 1000,
+          "singlePriceNet": 0.778,
+          "offerDate": "2021-06-01"
+        },
+        {
+          "unitSize": 1000,
+          "singlePriceNet": null,
+          "offerDate": "2021-06-02"
+        },
+        {
+          "unitSize": 1000,
+          "singlePriceNet": 0.678,
+          "offerDate": "2021-06-03"
+        },
+        {
+          "unitSize": 200,
+          "singlePriceNet": 1.2,
+          "offerDate": "2021-06-04"
+        }
+      ]
+    }
+  ]
+}

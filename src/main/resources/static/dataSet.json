@@ -1,5 +1,5 @@
 {
-  "kartikel": "2345",
+  "kartikel": "123454",
   "vendors": [
               {
                 "vendorId": 1,
@@ -12,7 +12,12 @@
                   {
                     "unitSize": 1000,
                     "singlePriceNet": 4,
-                    "offerDate": "2021-05-30"
+                    "offerDate": "2021-05-29"
+                  },
+                  {
+                    "unitSize": 1000,
+                    "singlePriceNet": 7,
+                    "offerDate": "2021-06-01"
                   }
                 ]
               },
@@ -22,16 +27,19 @@
                   {
                     "unitSize": 1000,
                     "singlePriceNet": 6,
-                    "offerDate": "2021-05-29"
+                    "offerDate": "2021-05-28"
                   },
                   {
                     "unitSize": 1000,
                     "singlePriceNet": 3,
+                    "offerDate": "2021-05-29"
+                  },
+                  {
+                    "unitSize": 1000,
+                    "singlePriceNet": 2,
                     "offerDate": "2021-06-01"
                   }
                 ]
               }
-  ],
-  "firstDate": "2021-05-15",
-  "lastDate": "2021-06-05"
+  ]
 }
