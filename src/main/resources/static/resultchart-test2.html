@@ -41,6 +41,80 @@
     return dates.flat().sort();
   }
 
+  function createNewChart(data){
+    <!--  create new Chart of type Line within the before created canvas line-chart-->
+    // line gaps with property spanGaps of line chart.js
+    // seems to be enabled by default, value has to be null
+    new Chart(document.getElementById("line-chart"), {
+      // https://www.chartjs.org/docs/latest/charts/line.html
+      type: 'line',
+      data: {
+        // labels == x axis
+        labels: getAllDates(data),
+        datasets: getDataSets(data),
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Net price single per vendor and offer date for Kartikel: ' + data.kartikel
+          },
+        legend:{
+          display: true
+          },
+        scales: {
+          // configuration for x axis // ticks are the steps on the axis
+          xAxes: [{
+            // do not show all ticks, but only every second (%2)
+            ticks: {
+              userCallback: function(item, index) {
+                if (!(index % 2)) return item;
+              }
+            }
+          }],
+          // configuration for y axis
+          // yAxes: [{
+          //   ticks: {
+          //     beginAtZero: true
+          //   }
+          // }]
+        }
+      }
+    });
+  }
+
+
+    function getDataSets(data){
+
+      const colors = new Array("0,180,180", "180,0,0", "0,180,0", "0,0,180", "90,0,180");
+      const dataSets = new Array();
+
+      // getting data from vendors
+      for (let i = 0; i < data.vendors.length; i++) {
+        let label = data.vendors[i].vendorId;
+        let borderColor = "rgb(" + colors[i] + ")";
+
+        let offersData = new Array();
+
+        // assign Array dataSets that contains dataset. in this array is the offerDataArray as data, that contains offers with date, price and unit size
+        dataSets.push(
+                {data: offersData,
+                  label: 'vendor '  + label +'unit size(s): ' + getUnitSizes(data.vendors[i].offers),
+                  borderColor: borderColor,
+                  fill: false}
+        )
+
+        // getting data from offers (inside vendors) and save them to the offerDataArray that is in dataSetArray
+        for(let n = 0; n < data.vendors[i].offers.length; n++){
+          offersData.push(data.vendors[i].offers[n].singlePriceNet)
+        }
+      }
+      console.log(dataSets);
+      return dataSets;
+    }
+
+
+
+
   function getUnitSizes(offers){
     const unitSizes = new Array();
     for(let i = 0; i < offers.length; i++){
@@ -53,68 +127,6 @@
       }
 
     return unitSizes;
-  }
-
-
-
-
-  function getDataSets(data){
-
-    const colors = new Array("0,180,180", "180,0,0", "0,180,0", "0,0,180", "90,0,180");
-    const dataSets = new Array();
-
-    // getting data from vendors
-    for (let i = 0; i < data.vendors.length; i++) {
-      let label = data.vendors[i].vendorId;
-      let borderColor = "rgb(" + colors[i] + ")";
-
-      let offersData = new Array();
-
-      // assign Array dataSets that contains dataset. in this array is the offerDataArray as data, that contains offers with date, price and unit size
-      dataSets.push(
-              {data: offersData,
-              label: 'vendor '  + label +'unit size(s): ' + getUnitSizes(data.vendors[i].offers),
-              borderColor: borderColor,
-              fill: false}
-      )
-
-      // getting data from offers (inside vendors) and save them to the offerDataArray that is in dataSetArray
-      for(let n = 0; n < data.vendors[i].offers.length; n++){
-        offersData.push(data.vendors[i].offers[n].singlePriceNet)
-      }
-    }
-    console.log(dataSets);
-    return dataSets;
-  }
-
-
-  function createNewChart(data){
-    <!--  create new Chart of type Line within the before created canvas line-chart-->
-    // line gaps with property spanGaps of line chart.js
-    // seems to be enabled by default, value has to be null
-    // https://www.chartjs.org/docs/latest/charts/line.html
-    new Chart(document.getElementById("line-chart"), {
-      type: 'line',
-      data: {
-        // labels == x axis
-        labels: getAllDates(data),
-        datasets: getDataSets(data),
-      },
-      options: {
-        title: {
-          display: true,
-          text: 'Net price single per vendor and offer date for Kartikel: ' + data.kartikel
-        },
-        legend:{
-          display: true
-        },
-        scales:{
-          xAxis:{
-            min: 0
-          }
-        }
-      }
-    });
   }
 
 </script>
