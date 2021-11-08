@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultchart with original data</title>
+</head>
+<body>
+
+<h1>Resultchart with original String Data</h1>
+
+<!--  include chart.js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>-->
+
+<!--  create canvas - this will be filled-->
+<canvas id="line-chart" width="800" height="450"></canvas>
+
+
+<script>
+
+    fetch("data-from-API.json")
+  //  fetch("dataSet-moreData.json") // Achtung singlePriceNet vs netPriceSingle
+        .then(response => response.json())
+        .then(returnedJsonData => {
+
+            console.log(returnedJsonData);
+            createNewChart(returnedJsonData);
+        })
+
+    // this is to get all Dates for the x axis
+    function getAllDates(data) {
+
+        const dates = new Array();
+        for (let i = 0; i < data.vendors.length; i++) {
+            for (let n = 0; n < data.vendors[i].offers.length; n++) {
+                // Array.includes(value) checks if a certain value exists in the array and returns boolean
+                // this check is to avoid double values in x axis
+                if(!dates.includes(data.vendors[i].offers[n].offerDate))dates.push(data.vendors[i].offers[n].offerDate);
+            }
+        }
+        // TODO: take the sort() method out and sort offerDates by date in REST API and flatten there as well and extinct double values
+        return dates.flat().sort();
+    }
+
+    function createNewChart(data){
+        <!--  create new Chart of type Line within the before created canvas line-chart-->
+        // line gaps with property spanGaps of line chart.js
+        // seems to be enabled by default, value has to be null
+        new Chart(document.getElementById("line-chart"), {
+            // https://www.chartjs.org/docs/latest/charts/line.html
+            type: 'line',
+            data: {
+                // labels == x axis
+                labels: getAllDates(data),
+                datasets: getDataSets(data),
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Net price single per vendor and offer date for Kartikel: ' + data.kartikel
+                },
+                legend:{
+                    display: true
+                },
+                scales: {
+                    // configuration for x axis // ticks are the steps on the axis
+                    xAxes: [{
+                        // do not show all ticks, but only every second (%2)
+                        ticks: {
+                            userCallback: function(item, index) {
+                                // if (!(index % 2)) return item;
+                                return item;
+                            }
+                        }
+                    }],
+                    // configuration for y axis
+                    // yAxes: [{
+                    //   ticks: {
+                    //     beginAtZero: true
+                    //   }
+                    // }]
+                }
+            }
+        });
+    }
+
+
+    function getDataSets(data){
+
+        const colors    = new Array("0,180,180", "180,0,0", "0,180,0", "0,0,180", "90,0,180");
+        const dataSets  = new Array();
+
+        // getting data from vendors
+        for (let i = 0; i < data.vendors.length; i++) {
+            let label = data.vendors[i].vendorId;
+            let borderColor = "rgb(" + colors[i] + ")";
+
+            let offersData = new Array();
+
+            // assign Array dataSets that contains dataset. in this array is the offerDataArray as data, that contains offers with date, price and unit size
+            dataSets.push(
+                {data: offersData,
+                    label: 'vendor '  + label +'unit size(s): ' + getUnitSizes(data.vendors[i].offers),
+                    borderColor: borderColor,
+                    fill: false}
+            )
+
+            // getting data from offers (inside vendors) and save them to the offerDataArray that is in dataSetArray
+            for(let n = 0; n < data.vendors[i].offers.length; n++){
+                offersData.push(data.vendors[i].offers[n].netPriceSingle)
+
+        console.log(dataSets);
+            }
+        }
+        return dataSets;
+    }
+
+
+
+
+    function getUnitSizes(offers){
+        const unitSizes = new Array();
+        for(let i = 0; i < offers.length; i++){
+            if(unitSizes.length == 0)unitSizes.push(offers[i].unitSize);
+
+            if(unitSizes.length > 0){
+                if(unitSizes.includes(offers[i].unitSize)) continue;
+                else unitSizes.push(offers[i].unitSize);
+            }
+        }
+
+        return unitSizes;
+    }
+
+</script>
+
+</body>
+</html>

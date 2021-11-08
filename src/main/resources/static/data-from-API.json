@@ -1,0 +1,103 @@
+{
+  "kartikel": "10629",
+  "vendors": [{
+    "vendorId": 0,
+    "offers": [{
+      "offerId": 7209,
+      "requestId": 6220,
+      "unitSize": 1000,
+      "netPriceSingle": 0.05131,
+      "VAT": 0.0,
+      "offerDate": "2021-06-30"
+    },
+      {
+        "offerId": 8125,
+        "requestId": 6220,
+        "unitSize": 1000,
+        "netPriceSingle": 0.06586,
+        "VAT": 0.0,
+        "offerDate": "2021-09-02"
+      }
+    ]
+  }, {
+    "vendorId": 1,
+    "offers": [{
+      "offerId": 7207,
+      "requestId": 6219,
+      "unitSize": 2000,
+      "netPriceSingle": 0.09500000042016807,
+      "VAT": 0.19,
+      "offerDate": "2021-06-30"
+    },
+      {
+        "offerId": 8123,
+        "requestId": 6219,
+        "unitSize": 2000,
+        "netPriceSingle": 0.09500000042016807,
+        "VAT": 0.19,
+        "offerDate": "2021-09-02"
+      },
+      {
+        "offerId": 7472,
+        "requestId": 6219,
+        "unitSize": 2000,
+        "netPriceSingle": 0.09500000042016807,
+        "VAT": 0.19,
+        "offerDate": "2021-07-01"
+      }
+    ]
+  }, {
+    "vendorId": 2,
+    "offers": [{
+      "offerId": 7215,
+      "requestId": 6385,
+      "unitSize": 1000,
+      "netPriceSingle": 0.0569,
+      "VAT": 0.0,
+      "offerDate": "2021-06-30"
+    },
+      {
+        "offerId": 7667,
+        "requestId": 6385,
+        "unitSize": 1000,
+        "netPriceSingle": 0.0569,
+        "VAT": 0.0,
+        "offerDate": "2021-07-18"
+      },
+      {
+        "offerId": 7531,
+        "requestId": 6385,
+        "unitSize": 1000,
+        "netPriceSingle": 5.7E-5,
+        "VAT": 0.0,
+        "offerDate": "2021-07-02"
+      },
+      {
+        "offerId": 7565,
+        "requestId": 6385,
+        "unitSize": 1000,
+        "netPriceSingle": 5.7E-5,
+        "VAT": 0.0,
+        "offerDate": "2021-07-17"
+      },
+      {
+        "offerId": 7476,
+        "requestId": 6385,
+        "unitSize": 1000,
+        "netPriceSingle": 0.0569,
+        "VAT": 0.0,
+        "offerDate": "2021-07-01"
+      }
+    ]
+  }, {
+    "vendorId": 3,
+    "offers": [{
+      "offerId": 7223,
+      "requestId": 6476,
+      "unitSize": 2000,
+      "netPriceSingle": 0.06860504201680671,
+      "VAT": 0.19,
+      "offerDate": "2021-06-30"
+    }]
+  }]
+}
